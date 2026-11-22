@@ -19,7 +19,7 @@ let toastTimeout;
 function cardTemplate(property) {
   return `<article class="property-card">
     <a href="?properti=${property.id}" class="property-image-link" data-property="${property.id}">
-      <img src="/assets/${property.image}.jpg" alt="Ilustrasi ${property.title}" loading="lazy" width="950" height="647">
+      <img src="assets/${property.image}.jpg" alt="Ilustrasi ${property.title}" loading="lazy" width="950" height="647">
       <span class="property-badges"><span class="badge">${property.mode === 'disewa' ? 'Disewa' : 'Dijual'}</span>${property.featured ? '<span class="badge badge-light">Pilihan Teras</span>' : property.isNew ? '<span class="badge badge-light">Proyek Baru</span>' : ''}</span>
       <span class="property-image-count">${icon('image')} ${property.gallery.length} foto ilustrasi</span>
       <span class="property-view">${icon('arrow-up')}</span>
@@ -70,7 +70,7 @@ function renderAreas() {
   const alts = ['Inspirasi arsitektur modern di kawasan perkotaan','Inspirasi lingkungan hunian dengan pepohonan rindang','Inspirasi rumah dengan halaman hijau','Inspirasi rumah dengan taman dan lingkungan yang tenang'];
   const cls = ['area-card area-tall','area-card','area-card','area-card area-wide'];
   const dims = ['width="720" height="960"','width="720" height="480"','width="720" height="480"','width="1440" height="480"'];
-  $('#area-grid').innerHTML = areas.slice(0,4).map((a,i) => `<button class="${cls[i]}" data-area="${a.name}"><img src="/assets/${imgs[i]}.jpg" alt="${alts[i]}" loading="lazy" ${dims[i]}><span class="area-copy">${i===0?`<small>${a.kicker||'HIDUP DI TENGAH KEMUDAHAN'}</small>`:''}<strong>${a.name}</strong><span>${a.note} ${icon('arrow-up')}</span></span></button>`).join('');
+  $('#area-grid').innerHTML = areas.slice(0,4).map((a,i) => `<button class="${cls[i]}" data-area="${a.name}"><img src="assets/${imgs[i]}.jpg" alt="${alts[i]}" loading="lazy" ${dims[i]}><span class="area-copy">${i===0?`<small>${a.kicker||'HIDUP DI TENGAH KEMUDAHAN'}</small>`:''}<strong>${a.name}</strong><span>${a.note} ${icon('arrow-up')}</span></span></button>`).join('');
   $('#location').innerHTML = '<option value="">Semua area ' + cityData().name + '</option>' + areas.map(a => `<option value="${a.name}">${a.name}</option>`).join('');
 }
 function applyCity() {
@@ -154,7 +154,7 @@ const heroSlides=[{src:'hero',alt:'Inspirasi hunian modern dengan taman hijau da
 let heroSlide=0;
 $$('[data-slide]').forEach(button=>button.addEventListener('click',()=>{
   heroSlide=(heroSlide+Number(button.dataset.slide)+heroSlides.length)%heroSlides.length;
-  const slide=heroSlides[heroSlide];$('#hero-image').src=`/assets/${slide.src}.jpg`;$('#hero-image').alt=slide.alt;
+  const slide=heroSlides[heroSlide];$('#hero-image').src=`assets/${slide.src}.jpg`;$('#hero-image').alt=slide.alt;
   $('#slide-number').textContent=String(heroSlide+1).padStart(2,'0');
 }));
 
@@ -181,12 +181,12 @@ function openProperty(id, updateUrl=true){
   const property=properties.find(p=>p.id===id);if(!property)return false;
   if(property.city!==state.city)setCity(property.city,{updateUrl:false});
   state.property=property;state.galleryIndex=0;
-  $('#property-detail').innerHTML=`<div class="detail-gallery"><img id="detail-image" src="/assets/${property.gallery[0]}.jpg" alt="Ilustrasi ${property.title}" width="1200" height="650"><div class="gallery-controls"><span class="gallery-count" id="gallery-count">1 / ${property.gallery.length} foto ilustrasi</span><div class="gallery-buttons"><button class="icon-button" data-gallery="-1" aria-label="Foto properti sebelumnya">${icon('arrow-left')}</button><button class="icon-button" data-gallery="1" aria-label="Foto properti berikutnya">${icon('arrow-right')}</button></div></div></div><div class="detail-content"><div class="detail-main"><span class="eyebrow green">${property.type.toUpperCase()} ${property.mode.toUpperCase()} · ${cities[property.city].name.toUpperCase()}</span><h2 id="detail-title">${property.title}</h2><p class="property-address">${icon('pin')}${property.address}</p><div class="detail-specs">${property.beds?`<div>Kamar tidur<strong>${property.beds} kamar</strong></div>`:`<div>Sertifikat<strong>${property.certificate}</strong></div>`}${property.baths?`<div>Kamar mandi<strong>${property.baths} kamar</strong></div>`:''}<div>Luas tanah<strong>${property.land} m²</strong></div>${property.building?`<div>Luas bangunan<strong>${property.building} m²</strong></div>`:''}</div><h3>Ruang untuk cerita Anda</h3><p>${property.description}</p><div class="detail-features">${property.features.map(feature=>`<span>${feature}</span>`).join('')}</div><p class="detail-demo">Listing contoh. Foto adalah ilustrasi dan tidak menggambarkan properti di lokasi yang disebutkan. Harga, spesifikasi, serta sertifikat merupakan data demonstrasi.</p></div><aside class="detail-aside"><span>${property.mode==='disewa'?'Harga sewa ilustrasi':'Harga penawaran ilustrasi'}</span><div class="property-price">${property.priceLabel}${property.mode==='disewa'?' <small>/ tahun</small>':''}</div><button class="button button-dark" data-contact="${property.mode==='disewa'?'sewa':'beli'}" data-inquiry="${property.id}">Tanya properti ini ${icon('arrow-up')}</button><button class="button button-outline" id="share-property">${icon('share')} Bagikan properti</button>${property.mode==='dijual'&&property.type==='Rumah'?`<button class="button button-outline" id="detail-calculator">${icon('wallet')} Simulasi KPR</button>`:''}<p class="detail-note">Tertarik dengan konsep seperti ini? Sampaikan kebutuhan Anda melalui formulir untuk memulai konsultasi.</p></aside></div>`;
+  $('#property-detail').innerHTML=`<div class="detail-gallery"><img id="detail-image" src="assets/${property.gallery[0]}.jpg" alt="Ilustrasi ${property.title}" width="1200" height="650"><div class="gallery-controls"><span class="gallery-count" id="gallery-count">1 / ${property.gallery.length} foto ilustrasi</span><div class="gallery-buttons"><button class="icon-button" data-gallery="-1" aria-label="Foto properti sebelumnya">${icon('arrow-left')}</button><button class="icon-button" data-gallery="1" aria-label="Foto properti berikutnya">${icon('arrow-right')}</button></div></div></div><div class="detail-content"><div class="detail-main"><span class="eyebrow green">${property.type.toUpperCase()} ${property.mode.toUpperCase()} · ${cities[property.city].name.toUpperCase()}</span><h2 id="detail-title">${property.title}</h2><p class="property-address">${icon('pin')}${property.address}</p><div class="detail-specs">${property.beds?`<div>Kamar tidur<strong>${property.beds} kamar</strong></div>`:`<div>Sertifikat<strong>${property.certificate}</strong></div>`}${property.baths?`<div>Kamar mandi<strong>${property.baths} kamar</strong></div>`:''}<div>Luas tanah<strong>${property.land} m²</strong></div>${property.building?`<div>Luas bangunan<strong>${property.building} m²</strong></div>`:''}</div><h3>Ruang untuk cerita Anda</h3><p>${property.description}</p><div class="detail-features">${property.features.map(feature=>`<span>${feature}</span>`).join('')}</div><p class="detail-demo">Listing contoh. Foto adalah ilustrasi dan tidak menggambarkan properti di lokasi yang disebutkan. Harga, spesifikasi, serta sertifikat merupakan data demonstrasi.</p></div><aside class="detail-aside"><span>${property.mode==='disewa'?'Harga sewa ilustrasi':'Harga penawaran ilustrasi'}</span><div class="property-price">${property.priceLabel}${property.mode==='disewa'?' <small>/ tahun</small>':''}</div><button class="button button-dark" data-contact="${property.mode==='disewa'?'sewa':'beli'}" data-inquiry="${property.id}">Tanya properti ini ${icon('arrow-up')}</button><button class="button button-outline" id="share-property">${icon('share')} Bagikan properti</button>${property.mode==='dijual'&&property.type==='Rumah'?`<button class="button button-outline" id="detail-calculator">${icon('wallet')} Simulasi KPR</button>`:''}<p class="detail-note">Tertarik dengan konsep seperti ini? Sampaikan kebutuhan Anda melalui formulir untuk memulai konsultasi.</p></aside></div>`;
   showDialog(propertyDialog);
   if(updateUrl){const url=new URL(location.href);url.searchParams.set('properti',id);url.searchParams.set('kota',property.city);history.replaceState(null,'',url)}
   $$('[data-gallery]',propertyDialog).forEach(button=>button.addEventListener('click',()=>{
     state.galleryIndex=(state.galleryIndex+Number(button.dataset.gallery)+property.gallery.length)%property.gallery.length;
-    $('#detail-image').src=`/assets/${property.gallery[state.galleryIndex]}.jpg`;
+    $('#detail-image').src=`assets/${property.gallery[state.galleryIndex]}.jpg`;
     $('#detail-image').alt=`Foto ilustrasi ${state.galleryIndex+1}, ${property.title}`;
     $('#gallery-count').textContent=`${state.galleryIndex+1} / ${property.gallery.length} foto ilustrasi`;
   }));
@@ -231,7 +231,7 @@ $('#contact-form').addEventListener('submit',async event=>{
   const submit=$('button[type="submit"]',form);const label=$('span',submit);const error=$('#form-error');
   submit.disabled=true;label.textContent='Mengirim permintaan…';error.hidden=true;form.setAttribute('aria-busy','true');
   try{
-    const response=await fetch('/',{method:'POST',headers:{'Content-Type':'application/x-www-form-urlencoded'},body:new URLSearchParams(new FormData(form)).toString()});
+    const response=await fetch(location.pathname,{method:'POST',headers:{'Content-Type':'application/x-www-form-urlencoded'},body:new URLSearchParams(new FormData(form)).toString()});
     if(!response.ok)throw new Error('submission_failed');
     $('#contact-content').hidden=true;$('#form-success').hidden=false;contactDialog.scrollTop=0;
     $('#form-success button').focus();form.reset();
